@@ -52,6 +52,7 @@ jobs:
 
       - name: Generate configuration file
         run: |
+          cat >> .config <<EOF
           CONFIG_TARGET_x86=y
           CONFIG_TARGET_x86_64=y
           CONFIG_TARGET_x86_64_DEVICE_generic=y
@@ -630,6 +631,8 @@ jobs:
           CONFIG_boost-runtime-shared=y
           CONFIG_boost-static-and-shared-libs=y
           CONFIG_boost-variant-release=y
+          EOF
+          sed -i 's/^[ \t]*//g' ./.config
           make defconfig
 
       - name: Download packages
